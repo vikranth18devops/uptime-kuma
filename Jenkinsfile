@@ -44,15 +44,15 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){
                        sh "docker build -t uptime ."
-                       sh "docker tag uptime ikranthdevops18/uptime:latest "
-                       sh "docker push ikranthdevops18/uptime:latest "
+                       sh "docker tag uptime vikranthdevops18/uptime:latest "
+                       sh "docker push vikranthdevops18/uptime:latest "
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image ikranthdevops18/uptime:latest > trivy.json"
+                sh "trivy image vikranthdevops18/uptime:latest > trivy.json"
             }
         }
         stage ("Remove container") {
@@ -63,7 +63,7 @@ pipeline{
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name uptime -v /var/run/docker.sock:/var/run/docker.sock -p 3001:3001 ikranthdevops18/uptime:latest'
+                sh 'docker run -d --name uptime -v /var/run/docker.sock:/var/run/docker.sock -p 3001:3001 vikranthdevops18/uptime:latest'
             }
         }
     }
