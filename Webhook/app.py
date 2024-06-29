@@ -15,14 +15,14 @@ def trigger_call():
 
     for number in numbers_to_call:
         call = client.calls.create(
-                            twim='<Response><Say>"change Alert message here"</Say></Response>',
+                            twiml='<Response><Say>"change Alert message here"</Say></Response>',
                             to=number,
                             from_='<twilio-number>'
                         )
         call_sids.append(call.sid)
 
     # Joining all the Call SIDs to return in response
-    call_sids_str = ', 'join(call_sids)
+    call_sids_str = ', '.join(call_sids)
     return f"Call initiated with SIDs: {call_sids_str}", 200
 
 if __name__ == '__main__':
