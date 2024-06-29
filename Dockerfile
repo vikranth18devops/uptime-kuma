@@ -1,20 +1,23 @@
-# Use the official Node.js 14 image as a parent image
+# Use the official Node.js 18 image as a parent image
 FROM node:18
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . .
+# Copy the package.json and package-lock.json files to install dependencies first
+COPY package*.json ./
 
 # Install any dependencies
 RUN npm install
 
-# Assuming you're at the right directory context
-# Backup the dist directory if it exists, and clear it
-RUN if [ -d "./dist" ]; then cp -r ./dist ./dist-backup && rm -rf ./dist; fi
+# Copy the current directory contents into the container at /app
+COPY . .
 
-#Install dist
-RUN npm run download-dist
+# Build the project to generate the dist directory
+RUN npm run build
+
+# Expose the port Uptime Kuma will run on
 EXPOSE 3001
+
+# Command to run the application
 CMD ["node", "server/server.js"]
