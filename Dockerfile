@@ -12,9 +12,9 @@ RUN npm install
 
 # Assuming you're at the right directory context
 # Backup the dist directory if it exists, and clear it
-RUN if [ -d "./dist" ]; then cp -r ./dist ./dist-backup && rm -rf ./dist; fi
+# RUN if [ -d "./dist" ]; then cp -r ./dist ./dist-backup && rm -rf ./dist; fi
 
 #Install dist
-RUN npm run download-dist
+RUN npm run build
 EXPOSE 3001
 CMD ["node", "server/server.js"]
